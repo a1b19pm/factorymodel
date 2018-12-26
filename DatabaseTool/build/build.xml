@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+-->
+<project name="build jar" default="jar" basedir="..">
+	<!--class文件目录-->
+	<property name="class.dir" value="bin" />
+	<property name="conf.dir" value="conf" />
+	<!--执行build的工作目录-->
+	<property name="build.dir" value="build" />
+	<!--输出的项目jar文件名-->
+	<property name="out.jar.name" value="DatabaseTool.jar" />
+	<!--输出的项目jar文件路径（包含文件名）-->
+	<property name="out.jar" value="${build.dir}/${out.jar.name}" />
+
+	<!--编译且打包src下的.java为jar-->
+	<target name="jar">
+		<!--先删除旧的jar文件-->
+		<delete file="${out.jar}" />
+		<!--编译且打包成jar文件-->
+		<jar destfile="${out.jar}" manifest="${build.dir}/MANIFEST.MF">
+			<fileset dir="${class.dir}">
+				<!--不要打包commons-logging.properties文件-->
+				<exclude name="*.xml" />
+				<exclude name="*.properties" />
+			</fileset>
+			<!--<fileset dir="${conf.dir}"></fileset>-->
+		</jar>
+		<echo>build => ${out.jar}</echo>
+	</target>
+</project>
